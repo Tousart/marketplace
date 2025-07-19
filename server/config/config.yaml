@@ -1,0 +1,8 @@
+http:
+  address: ":8080"
+postgres:
+  user: "user"
+  password: "password"
+  host: "postgres"
+  port: 5432
+  db_name: "psql"
