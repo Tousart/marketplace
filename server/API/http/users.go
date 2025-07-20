@@ -8,19 +8,19 @@ import (
 	"github.com/tousart/marketplace/API/http/types"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/tousart/marketplace/service"
+	"github.com/tousart/marketplace/usecase"
 )
 
 type Users struct {
-	authService service.AuthService
+	authService usecase.AuthService
 }
 
-func NewUsersHandler(auth service.AuthService) *Users {
+func NewUsersHandler(auth usecase.AuthService) *Users {
 	return &Users{authService: auth}
 }
 
 func (u *Users) postLoginHandler(w http.ResponseWriter, r *http.Request) {
-	userReq, err := types.CreateRequestHandler(r)
+	userReq, err := types.CreateUserRequestHandler(r)
 	if err != nil {
 		log.Printf("bad request: %v\n", err)
 		http.Error(w, "bad request", http.StatusBadRequest)
@@ -42,7 +42,7 @@ func (u *Users) postLoginHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func (u *Users) postRegisterHandler(w http.ResponseWriter, r *http.Request) {
-	userReq, err := types.CreateRequestHandler(r)
+	userReq, err := types.CreateUserRequestHandler(r)
 	if err != nil {
 		log.Printf("bad request: %v\n", err)
 		http.Error(w, "bad request", http.StatusBadRequest)

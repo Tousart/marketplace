@@ -18,4 +18,6 @@ COPY --from=build /build/main ./main
 
 COPY --from=build /build/config/config.yaml ./config.yaml
 
+COPY --from=build /build/resources/id.txt ./resources/id.txt
+
 CMD ["./main", "--config=./config.yaml"]

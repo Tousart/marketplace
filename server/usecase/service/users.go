@@ -1,4 +1,4 @@
-package auth
+package service
 
 import (
 	"errors"
@@ -46,7 +46,7 @@ func (as *AuthService) Register(login, password string) (string, string, string,
 		return "", "", "", err
 	}
 
-	userID := generateID()
+	userID := generateUserID()
 
 	hashPassword, err := hash(password)
 	if err != nil {
@@ -78,7 +78,7 @@ func isValidRegister(login, password string) error {
 	return nil
 }
 
-func generateID() string {
+func generateUserID() string {
 	id := uuid.NewString()
 	return id
 }
@@ -112,7 +112,7 @@ func ValidateToken(tokenString string) (string, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, errors.New("invalid method")
 		}
-		return SECRET_KEY, nil
+		return []byte(SECRET_KEY), nil
 	})
 
 	if err != nil || !token.Valid {

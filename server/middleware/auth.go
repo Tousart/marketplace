@@ -6,12 +6,9 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/tousart/marketplace/service/auth"
+	"github.com/tousart/marketplace/models"
+	"github.com/tousart/marketplace/usecase/service"
 )
-
-type authKey string
-
-const key authKey = "id"
 
 func Authorization(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -28,14 +25,14 @@ func Authorization(next http.Handler) http.Handler {
 			return
 		}
 
-		userID, err := auth.ValidateToken(tokenString)
+		userID, err := service.ValidateToken(tokenString)
 		if err != nil {
 			log.Printf("invalid token: %v\n", err)
 			http.Error(w, "invalid token", http.StatusBadRequest)
 			return
 		}
 
-		ctx := context.WithValue(r.Context(), key, userID)
+		ctx := context.WithValue(r.Context(), models.AuthKey, userID)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }

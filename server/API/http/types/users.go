@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func CreateRequestHandler(r *http.Request) (*UserRequest, error) {
+func CreateUserRequestHandler(r *http.Request) (*UserRequest, error) {
 	var user UserRequest
 	err := json.NewDecoder(r.Body).Decode(&user)
 	if err != nil {

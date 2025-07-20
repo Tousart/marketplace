@@ -1,4 +1,4 @@
-package service
+package usecase
 
 type AuthService interface {
 	Login(login, password string) (string, error)
