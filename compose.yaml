@@ -5,6 +5,8 @@ services:
     build:
      context: ./server
      dockerfile: ./Dockerfile
+    volumes:
+     - ./server/resources:/resources
     depends_on:
       postgres:
         condition: service_healthy
@@ -15,6 +17,8 @@ services:
     image: postgres:13.3
     ports:
      - 5432:5432
+    # volumes:
+    #  - ./psql_db:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: psql
       POSTGRES_USER: user
