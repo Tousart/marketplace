@@ -223,11 +223,11 @@ func isValidText(text string) error {
 }
 
 func isValidURL(url string) error {
-	if !strings.HasPrefix(url, "htt") && !strings.HasPrefix(url, "ht") {
+	if !strings.HasPrefix(url, "http://") && !strings.HasPrefix(url, "https://") {
 		return errors.New("invalid protocol")
 	}
 
-	if !strings.HasSuffix(url, "png") && !strings.HasSuffix(url, "jpg") {
+	if !strings.HasSuffix(url, ".png") && !strings.HasSuffix(url, ".jpg") {
 		return errors.New("invalid format")
 	}
 
